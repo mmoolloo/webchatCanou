@@ -1,0 +1,6 @@
+cyclone==1.1
+Twisted==16.4.1
+sockjs-cyclone==1.0.2
+requests==2.9.1
+numpy==1.11.1rc1
+service_identity
