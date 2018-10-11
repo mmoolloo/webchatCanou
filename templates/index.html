@@ -12,7 +12,13 @@
 
       function log(msg) {
         var control = $('#log');
-        control.html(control.html() + msg + '<br/>');
+        control.html(control.html() + '<div class="bot-msg">' + msg + '</div>');
+        control.scrollTop(control.scrollTop() + 1000);
+      }
+
+      function logUser(msg) {
+        var control = $('#log');
+        control.html(control.html() + '<div class="user-msg">' + msg + '</div>');
         control.scrollTop(control.scrollTop() + 1000);
       }
 
@@ -35,7 +41,7 @@
           update_ui();
         };
       }
-
+      window.onload = connect;
       function disconnect() {
         if (conn != null) {
           conn.close();
@@ -43,6 +49,8 @@
           update_ui();
         }
       }
+
+
 
       function update_ui() {
         var msg = '';
@@ -63,9 +71,10 @@
         update_ui();
         return false;
       });
+
       $('form').submit(function() {
         var text = $('#text').val();
-        log('Tu: ' + text);
+        logUser(text);
         conn.send(text);
         $('#text').val('').focus();
         return false;
@@ -87,20 +96,36 @@
       background-color:#FEFF7C !important;
     }
     .canou-green{
-      background-color:#11C26F;
+      background-color:#40C0BE;
     }
     .canou-light-blue{
       background-color:#009FFF;
     }
+    .bot-msg{
+      float: left;
+      background-color:#29244E;
+      clear: both;
+      color: white;
+      padding: 10px;
+      border-radius: 0px 100px 100px 100px;
+    }
+    .user-msg{
+      float: right;
+      background-color:#40C0BE;
+      color: white;
+      clear: both;
+      padding: 10px;
+      border-radius: 100px 100px 0px 100px;
+    }
+
   </style>
 </head>
 
 <body>
   <div class="center">
-    <img src="http://canou.io/img/logo-footer.svg" alt="canou logo" class="responsive-img canou-blue" style="max-width:90px; margin-bottom:30px; padding:10px; border-radius:5px;">
+    <img src="http://i68.tinypic.com/2s00dhw.png" alt="belieff logo" class="responsive-img" style="max-width:90px; margin-bottom:30px; padding:10px; border-radius:5px;">
   </div>
   <div class="center">
-    <a id="connect" class="btn canou-light-blue" href="#">Iniciar chat</a>
     <div class="chip">
       Status: <span id="status">Chat detenido</span>
     </div>
@@ -108,7 +133,7 @@
   <div class="container">
     <div class="row">
       <div class="col s12">
-        <div id="log" class="card-panel chatdiv">
+        <div id="log" class="card-panel chatdiv grey-text text-darken-2">
         </div>
       </div>
     </div>
